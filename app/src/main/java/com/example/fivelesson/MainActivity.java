@@ -4,17 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Switch;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,11 +31,11 @@ public class MainActivity extends AppCompatActivity {
                    item.setChecked(true);
                    break;
                case R.id.navigation_list:
-                   transaction.replace(R.id.fragment_container, listFragment.newInstance("value1", "value2")).commit();
+                   transaction.replace(R.id.fragment_container, listFragment.newInstance("value1")).commit();
                    item.setChecked(true);
                    break;
                case R.id.navigation_profil:
-                   transaction.replace(R.id.fragment_container, PlofielFragment.newInstance("value1", "value2")).commit();
+                   transaction.replace(R.id.fragment_container, ProfilelFragment.newInstance("value1", "value2")).commit();
                    item.setChecked(true);
                    break;
            }

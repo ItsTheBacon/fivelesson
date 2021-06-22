@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PlofielFragment#newInstance} factory method to
+ * Use the {@link ProfilelFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class  PlofielFragment extends Fragment {
+public class ProfilelFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +24,7 @@ public class  PlofielFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PlofielFragment() {
+    public ProfilelFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +37,8 @@ public class  PlofielFragment extends Fragment {
      * @return A new instance of fragment PlofielFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PlofielFragment newInstance(String param1, String param2) {
-        PlofielFragment fragment = new PlofielFragment();
+    public static ProfilelFragment newInstance(String param1, String param2) {
+        ProfilelFragment fragment = new ProfilelFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

@@ -1,20 +1,29 @@
 package com.example.fivelesson;
 
-import android.widget.TextView;
+import java.io.Serializable;
 
-public class TaskModel {
-    TextView txttitle;
+public class TaskModel implements Serializable {
+    String title;
+    String descrption;
 
-
-    public TaskModel(TextView txttitle) {
-        this.txttitle = txttitle;
+    public String getDescrption() {
+        return descrption;
     }
 
-    public TextView getTxttitle() {
-        return txttitle;
+    public void setDescrption(String descrption) {
+        this.descrption = descrption;
     }
 
-    public void setTxttitle(TextView txttitle) {
-        this.txttitle = txttitle;
+    public TaskModel(String title, String descrption) {
+        this.title = title;
+        this.descrption = descrption;
+    }
+
+    public String getTxttitle() {
+        return title;
+    }
+
+    public void setTxttitle(String txttitle) {
+        this.title = txttitle;
     }
 }

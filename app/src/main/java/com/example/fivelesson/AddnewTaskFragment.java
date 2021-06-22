@@ -3,13 +3,17 @@ package com.example.fivelesson;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,8 +21,9 @@ import android.widget.EditText;
  * create an instance of this fragment.
  */
 public class AddnewTaskFragment extends Fragment {
-    EditText etSend;
+    EditText etSend , etDescription;
     Button btnSend;
+    TaskFragmentAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +61,7 @@ public class AddnewTaskFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -63,15 +69,19 @@ public class AddnewTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_addnew_task, container, false);
-        etSend = view.findViewById(R.id.et_send_taskFragment);
+        etSend = view.findViewById(R.id.et_title_taskFragment);
+        etDescription = view.findViewById(R.id.et_Description_taskFragment);
         btnSend = view.findViewById(R.id.btn_add_taskFragment);
         btnSend.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString("title", etSend.getText().toString());
-         getActivity().getSupportFragmentManager().setFragmentResult("title",bundle);
-         getActivity().getSupportFragmentManager().popBackStack();
+            bundle.putString("title",etSend.getText().toString());
+            bundle.putString("description",etDescription.getText().toString());
 
+            getActivity().getSupportFragmentManager().setFragmentResult("title", bundle);
+            getActivity().getSupportFragmentManager().popBackStack();
         });
+
+
         // Inflate the layout for this fragment
         return view;
     }
