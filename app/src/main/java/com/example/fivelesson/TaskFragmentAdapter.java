@@ -14,10 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapter.TaskViewHolder> {
-     List<TaskModel> list = new ArrayList<>();
+    public List<TaskModel> list = new ArrayList<>();
     LayoutInflater layoutInflater;
-    ItemClickList onitemClickList;
-
+    private ItemClickList onitemClickList;
 
 
     public void setItemClickList(ItemClickList itemClickList) {
@@ -25,17 +24,17 @@ public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapte
     }
 
 
-    public  TaskFragmentAdapter(Context context){
+    public TaskFragmentAdapter(Context context) {
         this.layoutInflater = LayoutInflater.from(context);
     }
 
 
-
-    public void addData(String title,String descrption) {
-        list.add(0,new TaskModel(title, descrption));
+    public void EditData(int position, TaskModel model) {
+        list.get(position).setTxttitle(model.getTxttitle());
+        list.get(position).setDescrption(model.getDescrption());
         notifyDataSetChanged();
-
     }
+
     public void deleteTask(int position) {
         list.remove(position);
         notifyDataSetChanged();
@@ -43,14 +42,20 @@ public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapte
 
     @Override
     public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.item_task, parent,false);
+        View view = layoutInflater.inflate(R.layout.item_task, parent, false);
         return new TaskViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(TaskFragmentAdapter.TaskViewHolder holder, int position) {
-        holder.txttitle.setText(list.get(position).getTxttitle());
-        holder.txtDescription.setText(list.get(position).getDescrption());
+        holder.bind(list.get(position));
+
+
+    }
+
+    public void addData(TaskModel taskModel) {
+        this.list.add(taskModel);
+        notifyDataSetChanged();
 
     }
 
@@ -59,13 +64,25 @@ public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapte
         return list.size();
     }
 
+
     public class TaskViewHolder extends RecyclerView.ViewHolder {
-        TextView txttitle , txtDescription;
+        TextView txttitle, txtDescription;
 
         public TaskViewHolder(View itemView) {
             super(itemView);
             txttitle = itemView.findViewById(R.id.item_title_txt);
-            txtDescription= itemView.findViewById(R.id.item_txt_description);
+            txtDescription = itemView.findViewById(R.id.item_txt_description);
+        }
+
+        public void bind(TaskModel taskModel) {
+            txttitle.setText(taskModel.getTxttitle());
+            txtDescription.setText(taskModel.getDescrption());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onitemClickList.CLickItem(getAdapterPosition(), taskModel);
+                }
+            });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -90,9 +107,7 @@ public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapte
                 }
             });
 
-
         }
-
     }
 
 }

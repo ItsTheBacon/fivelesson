@@ -6,6 +6,11 @@ public class TaskModel implements Serializable {
     String title;
     String descrption;
 
+
+    public TaskModel(String title, String descrption) {
+        this.title = title;
+        this.descrption = descrption;
+    }
     public String getDescrption() {
         return descrption;
     }
@@ -14,10 +19,7 @@ public class TaskModel implements Serializable {
         this.descrption = descrption;
     }
 
-    public TaskModel(String title, String descrption) {
-        this.title = title;
-        this.descrption = descrption;
-    }
+
 
     public String getTxttitle() {
         return title;

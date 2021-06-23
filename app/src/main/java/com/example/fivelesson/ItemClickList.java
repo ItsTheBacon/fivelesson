@@ -2,6 +2,6 @@ package com.example.fivelesson;
 
 public interface ItemClickList {
 
-    void CLickItem (int position);
+    void CLickItem (int position , TaskModel model);
 
 }

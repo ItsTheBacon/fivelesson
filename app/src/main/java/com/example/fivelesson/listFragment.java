@@ -1,9 +1,7 @@
 package com.example.fivelesson;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +24,9 @@ public class listFragment extends Fragment {
     FloatingActionButton fab;
     RecyclerView rvtask;
     TaskFragmentAdapter Adapter;
+
+    private int pos;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -53,7 +53,6 @@ public class listFragment extends Fragment {
         listFragment fragment = new listFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, title);
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -61,32 +60,17 @@ public class listFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Adapter = new TaskFragmentAdapter(requireContext());
-
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-
         }
-        Adapter.setItemClickList(new ItemClickList() {
-            @Override
-            public void CLickItem(int position) {
-             Bundle bundle = new Bundle();
-
-
-
-            }
-        });
-
-
+        Adapter = new TaskFragmentAdapter(requireContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        // Inflate the layout for this fragment
         rvtask = view.findViewById(R.id.rv_task);
         fab = view.findViewById(R.id.fab_add_btn);
         rvtask.setAdapter(Adapter);
@@ -94,34 +78,40 @@ public class listFragment extends Fragment {
         getActivity().getSupportFragmentManager().setFragmentResultListener("title", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(String requestKey, Bundle result) {
-                Adapter.addData(result.getString("title"), result.getString("description"));
-                Toast.makeText(requireContext(), result.getString("title"), Toast.LENGTH_SHORT).show();
+                TaskModel taskModel = (TaskModel) result.getSerializable("key");
+                TaskModel upModel = (TaskModel) result.getSerializable("model");
+                if (taskModel != null) {
+                    Adapter.addData(taskModel);
+                } else {
+                    Adapter.EditData(pos, upModel);
+                }
             }
         });
-
-
-
-
-//        getActivity().getSupportFragmentManager().setFragmentResultListener("title", this, (requestKey, result) -> {
-////            Adapter.addData(result.getParcelable("title"));
-//
-//
-//
-//        });
-//        String title = getArguments().getString("title");
-//        Adapter.addData(title);
-
-
         onClickFab();
+        onClickEditAdapter();
 
         return view;
     }
 
-    private void onClickFab() {
-        fab.setOnClickListener(v -> {
-            getActivity().getSupportFragmentManager().beginTransaction().addToBackStack("AddnewTaskFragment").replace(R.id.fragment_container, new AddnewTaskFragment(), "AddnewTaskFragment").commit();
-
+    private void onClickEditAdapter() {
+        Adapter.setItemClickList((position, model) -> {
+            pos = position;
+            Bundle bundle = new Bundle();
+            TaskModel mod1 = new TaskModel(Adapter.list.get(position).getTxttitle(),Adapter.list.get(position).getDescrption());
+            bundle.putSerializable("model",mod1);
+            getActivity().getSupportFragmentManager().setFragmentResult("text", bundle);
+            getActivity().getSupportFragmentManager().popBackStack();
+            getActivity().getSupportFragmentManager().beginTransaction().
+                    addToBackStack("AddnewTaskFragment")
+                    .replace(R.id.fragment_container, new AddnewTaskFragment()).commit();
         });
     }
-
+    private void onClickFab() {
+        fab.setOnClickListener(v -> {
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .addToBackStack("AddnewTaskFragment")
+                    .replace(R.id.fragment_container, new AddnewTaskFragment())
+                    .commit();
+        });
+    }
 }

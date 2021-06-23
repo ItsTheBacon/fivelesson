@@ -21,9 +21,10 @@ import android.widget.Toast;
  * create an instance of this fragment.
  */
 public class AddnewTaskFragment extends Fragment {
-    EditText etSend , etDescription;
+    EditText etSend, etDescription;
     Button btnSend;
-    TaskFragmentAdapter adapter;
+    TaskModel taskModel;
+    TaskModel model;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,17 +73,32 @@ public class AddnewTaskFragment extends Fragment {
         etSend = view.findViewById(R.id.et_title_taskFragment);
         etDescription = view.findViewById(R.id.et_Description_taskFragment);
         btnSend = view.findViewById(R.id.btn_add_taskFragment);
-        btnSend.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putString("title",etSend.getText().toString());
-            bundle.putString("description",etDescription.getText().toString());
-
-            getActivity().getSupportFragmentManager().setFragmentResult("title", bundle);
-            getActivity().getSupportFragmentManager().popBackStack();
-        });
-
-
-        // Inflate the layout for this fragment
+           btnSend.setOnClickListener(v -> {
+               String title = etSend.getText().toString();
+               String description = etDescription.getText().toString();
+               taskModel = new TaskModel(title, description);
+               Bundle bundle = new Bundle();
+                 if (model == null){
+                   bundle.putSerializable("key", taskModel);
+                  }else {
+                   model = new TaskModel(title, description);
+                   bundle.putSerializable("model", model);
+                 }
+               getActivity().getSupportFragmentManager().setFragmentResult("title", bundle);
+               getActivity().getSupportFragmentManager().popBackStack();
+           });
+        editData();
         return view;
+
+    }
+    private void editData() {
+        getActivity().getSupportFragmentManager().setFragmentResultListener("text", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(String requestKey, Bundle result) {
+                model = (TaskModel) result.getSerializable("model");
+                etSend.setText(model.getTxttitle());
+                etDescription.setText(model.getDescrption());
+            }
+        });
     }
 }
