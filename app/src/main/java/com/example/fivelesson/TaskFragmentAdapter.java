@@ -18,7 +18,6 @@ public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapte
     LayoutInflater layoutInflater;
     private ItemClickList onitemClickList;
 
-
     public void setItemClickList(ItemClickList itemClickList) {
         this.onitemClickList = itemClickList;
     }
