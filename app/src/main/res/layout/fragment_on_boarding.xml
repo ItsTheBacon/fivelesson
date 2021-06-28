@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OnBoardingFragment">
+
+
+    <ImageView
+        android:id="@+id/onboarding_item_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="230dp"
+
+        android:background="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/onboarding_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/onboarding_item_image"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="29dp"
+        android:gravity="center_horizontal"
+        android:text="Welcome to Surf"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:textStyle="bold"
+
+        />
+
+    <TextView
+        android:id="@+id/onboarding_item_decription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/onboarding_item_title"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="29dp"
+        android:gravity="center_horizontal"
+
+
+        android:textAlignment="center" />
+
+</RelativeLayout>

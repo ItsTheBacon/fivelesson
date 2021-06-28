@@ -20,38 +20,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-   bottomNavigationView= findViewById(R.id.bottom_navigation);
-   bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-       @Override
-       public boolean onNavigationItemSelected(@NonNull  MenuItem item) {
-           FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-           switch (item.getItemId()){
-               case R.id.navigation_home:
-                   transaction.replace(R.id.fragment_container, HomeFragment.newInstance("value1", "value2")).commit();
-                   item.setChecked(true);
-                   break;
-               case R.id.navigation_list:
-                   transaction.replace(R.id.fragment_container, listFragment.newInstance("value1")).commit();
-                   item.setChecked(true);
-                   break;
-               case R.id.navigation_profil:
-                   transaction.replace(R.id.fragment_container, ProfilelFragment.newInstance("value1", "value2")).commit();
-                   item.setChecked(true);
-                   break;
-           }
-           return false;
-       }
-   });
-//        fabopen_Taskfragment.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new AddnewTaskFragment()).commit();
-//            //    getFragmentManager().beginTransaction().replace(R.id.fragment_container,new AddnewTaskFragment).commit();
-//
-//            }
-//        });
-
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        transaction.replace(R.id.fragment_container, HomeFragment.newInstance("value1", "value2")).commit();
+                        item.setChecked(true);
+                        break;
+                    case R.id.navigation_list:
+                        transaction.replace(R.id.fragment_container, listFragment.newInstance("value1")).commit();
+                        item.setChecked(true);
+                        break;
+                    case R.id.navigation_profil:
+                        transaction.replace(R.id.fragment_container, ProfilelFragment.newInstance("value1", "value2")).commit();
+                        item.setChecked(true);
+                        break;
+                }
+                return false;
+            }
+        });
     }
-
-
 }
