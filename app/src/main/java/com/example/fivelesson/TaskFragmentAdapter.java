@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapter.TaskViewHolder> {
+public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapter.TaskViewHolder>{
     public List<TaskModel> list = new ArrayList<>();
     LayoutInflater layoutInflater;
     private ItemClickList onitemClickList;
@@ -39,28 +39,10 @@ public class TaskFragmentAdapter extends RecyclerView.Adapter<TaskFragmentAdapte
         notifyDataSetChanged();
     }
 
-    @Override
-    public TaskViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.item_task, parent, false);
-        return new TaskViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(TaskFragmentAdapter.TaskViewHolder holder, int position) {
-        holder.bind(list.get(position));
-
-
-    }
-
     public void addData(TaskModel taskModel) {
         this.list.add(taskModel);
         notifyDataSetChanged();
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
     }
 
 
